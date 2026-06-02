@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NeuroFlow AI — Zero-human AI automation agency. Python automation, web scraping, content writing, data analysis, AI chatbots, and research.">
+  <title>NeuroFlow AI — Zero-Human Automation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep: #08090a;
+      --bg-panel: #0f1011;
+      --bg-surface: #191a1b;
+      --bg-card: rgba(255,255,255,0.03);
+      --bg-card-hover: rgba(255,255,255,0.06);
+      --text-primary: #f7f8f8;
+      --text-secondary: #d0d6e0;
+      --text-muted: #8a8f98;
+      --text-subtle: #62666d;
+      --accent: #6366f1;
+      --accent-hover: #818cf8;
+      --accent-glow: rgba(99,102,241,0.15);
+      --cyan: #06b6d4;
+      --border-subtle: rgba(255,255,255,0.05);
+      --border-standard: rgba(255,255,255,0.08);
+      --radius-sm: 6px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text-secondary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ── Navigation ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(15,16,17,0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 56px;
+    }
+    .logo {
+      font-size: 18px; font-weight: 600; color: var(--text-primary);
+      letter-spacing: -0.3px; text-decoration: none;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+    .nav-links a {
+      font-size: 14px; font-weight: 500; color: var(--text-muted);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+    .nav-cta {
+      background: var(--accent); color: #fff; border: none;
+      padding: 8px 18px; border-radius: var(--radius-sm);
+      font-size: 14px; font-weight: 500; cursor: pointer;
+      text-decoration: none; transition: background 0.2s, box-shadow 0.2s;
+    }
+    .nav-cta:hover { background: var(--accent-hover); box-shadow: 0 0 20px var(--accent-glow); }
+
+    /* ── Sections ── */
+    section { padding: 100px 24px; }
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    /* ── Hero ── */
+    #hero { padding-top: 180px; text-align: center; }
+    #hero .badge {
+      display: inline-block; padding: 4px 14px; border-radius: 9999px;
+      border: 1px solid var(--border-standard);
+      font-size: 13px; font-weight: 500; color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+    #hero .badge span { color: var(--cyan); }
+    #hero h1 {
+      font-size: clamp(40px, 5.5vw, 64px); font-weight: 600;
+      color: var(--text-primary); line-height: 1.05;
+      letter-spacing: -1.4px; margin-bottom: 20px;
+    }
+    #hero h1 .accent { color: var(--accent); }
+    #hero .sub {
+      font-size: 18px; color: var(--text-muted); max-width: 560px;
+      margin: 0 auto 40px; line-height: 1.55;
+    }
+    .cta-group { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--accent); color: #fff; border: none;
+      padding: 12px 28px; border-radius: var(--radius-sm);
+      font-size: 15px; font-weight: 500; cursor: pointer;
+      text-decoration: none; transition: all 0.2s;
+    }
+    .btn-primary:hover { background: var(--accent-hover); box-shadow: 0 0 24px var(--accent-glow); }
+    .btn-ghost {
+      background: rgba(255,255,255,0.03); color: var(--text-secondary);
+      border: 1px solid var(--border-standard); padding: 12px 28px;
+      border-radius: var(--radius-sm); font-size: 15px; font-weight: 500;
+      cursor: pointer; text-decoration: none; transition: all 0.2s;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.15); }
+
+    /* ── Section Headers ── */
+    .section-tag {
+      font-size: 13px; font-weight: 600; color: var(--accent);
+      text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(28px, 4vw, 40px); font-weight: 600;
+      color: var(--text-primary); letter-spacing: -0.6px; margin-bottom: 14px;
+    }
+    .section-sub {
+      font-size: 16px; color: var(--text-muted); max-width: 560px;
+    }
+
+    /* ── Services Grid ── */
+    #services .header { text-align: center; margin-bottom: 56px; }
+    #services .header .section-sub { margin: 0 auto; }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    }
+    .service-card {
+      background: var(--bg-card); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md); padding: 28px;
+      transition: all 0.25s;
+    }
+    .service-card:hover {
+      background: var(--bg-card-hover); border-color: var(--border-standard);
+      transform: translateY(-2px);
+    }
+    .service-card .icon {
+      width: 40px; height: 40px; border-radius: var(--radius-sm);
+      background: rgba(99,102,241,0.1); display: flex; align-items: center;
+      justify-content: center; margin-bottom: 16px; font-size: 18px;
+    }
+    .service-card h3 {
+      font-size: 18px; font-weight: 600; color: var(--text-primary);
+      margin-bottom: 8px; letter-spacing: -0.2px;
+    }
+    .service-card p {
+      font-size: 14px; color: var(--text-muted); line-height: 1.55;
+    }
+
+    /* ── How It Works ── */
+    #how .header { text-align: center; margin-bottom: 56px; }
+    #how .header .section-sub { margin: 0 auto; }
+    .steps {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    }
+    .step {
+      text-align: center; padding: 32px 24px;
+      background: var(--bg-card); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md); position: relative;
+    }
+    .step-num {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--accent); color: #fff; font-size: 14px; font-weight: 600;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px;
+    }
+    .step h3 {
+      font-size: 18px; font-weight: 600; color: var(--text-primary);
+      margin-bottom: 6px; letter-spacing: -0.2px;
+    }
+    .step p { font-size: 14px; color: var(--text-muted); }
+
+    /* ── Stats / Trust ── */
+    #trust { background: var(--bg-panel); }
+    #trust .container { text-align: center; }
+    .stats {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+      margin-bottom: 40px;
+    }
+    .stat h2 {
+      font-size: 40px; font-weight: 600; color: var(--text-primary);
+      letter-spacing: -0.8px;
+    }
+    .stat p { font-size: 14px; color: var(--text-muted); margin-top: 4px; }
+    .trust-text {
+      max-width: 600px; margin: 0 auto;
+      font-size: 16px; color: var(--text-secondary); line-height: 1.65;
+    }
+
+    /* ── CTA Final ── */
+    #cta-final {
+      text-align: center; padding: 120px 24px;
+    }
+    #cta-final h2 {
+      font-size: clamp(32px, 4.5vw, 48px); font-weight: 600;
+      color: var(--text-primary); letter-spacing: -0.8px; margin-bottom: 12px;
+    }
+    #cta-final p {
+      font-size: 17px; color: var(--text-muted); margin-bottom: 32px;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 32px 24px;
+    }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 16px;
+    }
+    footer p { font-size: 13px; color: var(--text-subtle); }
+    footer .footer-links { display: flex; gap: 20px; }
+    footer .footer-links a {
+      font-size: 13px; color: var(--text-muted); text-decoration: none; transition: color 0.2s;
+    }
+    footer .footer-links a:hover { color: var(--text-primary); }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .services-grid, .steps, .stats { grid-template-columns: 1fr; }
+      #hero { padding-top: 140px; }
+      section { padding: 64px 20px; }
+    }
+    @media (max-width: 1024px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo"><span class="logo-dot"></span>NeuroFlow AI</a>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#how">How It Works</a>
+      <a href="#trust">About</a>
+      <a href="#cta-final" class="nav-cta">Get Started</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section id="hero">
+  <div class="container">
+    <div class="badge"><span>&#9679;</span> AI-Powered Freelance Services</div>
+    <h1>AI That <span class="accent">Delivers</span>.<br>Zero Humans Required.</h1>
+    <p class="sub">End-to-end automation for Python scripting, web scraping, content, data, chatbots, and research — all powered by AI agents.</p>
+    <div class="cta-group">
+      <a href="https://t.me/neuroflowfz_Bot" class="btn-primary" target="_blank" rel="noopener">Try Our Bot</a>
+      <a href="#services" class="btn-ghost">Explore Services</a>
+    </div>
+  </div>
+</section>
+
+<!-- Services -->
+<section id="services">
+  <div class="container">
+    <div class="header">
+      <div class="section-tag">What We Do</div>
+      <h2 class="section-title">11 departments, one AI engine</h2>
+      <p class="section-sub">Professional AI services to streamline your operations — no humans in the loop.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="icon">&#9881;</div>
+        <h3>Python Automation</h3>
+        <p>Custom scripts, API integrations, and workflow bots that run while you sleep.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">&#128269;</div>
+        <h3>Web Scraping</h3>
+        <p>Extract structured data from any website at scale — clean, validated, ready to use.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">&#9998;</div>
+        <h3>Content Writing</h3>
+        <p>SEO-optimized blogs, articles, and copywriting tailored to your brand voice.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">&#128202;</div>
+        <h3>Data Analysis</h3>
+        <p>Actionable insights through reports, dashboards, and statistical deep-dives.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">&#129302;</div>
+        <h3>AI Chatbots</h3>
+        <p>Conversational agents built with n8n, LangGraph, and Claude for 24/7 support.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">&#128270;</div>
+        <h3>Research</h3>
+        <p>Market analysis, competitor intelligence, and data-driven strategic briefs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works -->
+<section id="how">
+  <div class="container">
+    <div class="header">
+      <div class="section-tag">Process</div>
+      <h2 class="section-title">How it works</h2>
+      <p class="section-sub">Simple. Fast. Autonomous.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Discovery</h3>
+        <p>You describe the task. Our AI scopes the requirements.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Execution</h3>
+        <p>AI agents build, scrape, write, or analyze — zero human touch.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Delivery</h3>
+        <p>Quality-checked output delivered to your inbox or platform.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Trust / Stats -->
+<section id="trust">
+  <div class="container">
+    <div class="section-tag">Why NeuroFlow</div>
+    <div class="stats">
+      <div class="stat"><h2>11</h2><p>AI Departments</p></div>
+      <div class="stat"><h2>24/7</h2><p>Autonomous Operation</p></div>
+      <div class="stat"><h2>100%</h2><p>Quality Controlled</p></div>
+    </div>
+    <p class="trust-text">Every deliverable passes through automated quality checks before it reaches you. Reliable, consistent, and built for scale — without the overhead of a traditional agency.</p>
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section id="cta-final">
+  <div class="container">
+    <h2>Ready to automate?</h2>
+    <p>Let AI handle the work. You focus on what matters.</p>
+    <div class="cta-group">
+      <a href="https://t.me/neuroflowfz_Bot" class="btn-primary" target="_blank" rel="noopener">Try Our Telegram Bot</a>
+      <a href="mailto:neuroflowai.official@gmail.com" class="btn-ghost">Email Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <p>&copy; 2025 NeuroFlow AI. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="https://t.me/neuroflowfz_Bot" target="_blank" rel="noopener">Telegram Bot</a>
+      <a href="https://github.com/Fyruzfz/neuroflow-telegram-bot" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:neuroflowai.official@gmail.com">Contact</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
